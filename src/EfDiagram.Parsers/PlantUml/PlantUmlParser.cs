@@ -35,7 +35,6 @@ entity ""{name}"" as {name} {{
             
             foreach (var column in columns.Where(p => !p.IsPrimaryKey)) {
                 sb.AppendLine($"    {column.Name}: {column.Type}");
-                sb.Append($"{( column.IsPrimaryKey ? "---\r\n" : "" )}");
                 sb.Append($"{( column.IsForeignKey ? "<<FK>>" : "" )}");
             }
             return sb.ToString();
