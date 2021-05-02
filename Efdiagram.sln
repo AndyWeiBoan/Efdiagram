@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CE5FC182-0ECF-497E-A261-E1BE3AAA00BB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EfDiagram.Domain", "src\EfDiagram.Domain\EfDiagram.Domain.csproj", "{12EDE622-4B34-4D8A-B957-9DB5FBDB3F73}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EfDiagram.Parsers", "src\EfDiagram.Parsers\EfDiagram.Parsers.csproj", "{A75C3E50-B630-41F2-B61D-F9316E24B43B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "app", "app", "{D1D431AF-C49A-484F-B35E-7AA78BB25AED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{93F66D7D-8DBF-401A-95D8-7D9E2D59FD96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EfDiagram.UnitTest", "src\test\EfDiagram.UnitTest\EfDiagram.UnitTest.csproj", "{64FC629A-23BD-469C-BDA6-088B385F7810}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EfDiagram.Analyzer", "src\EfDiagram.Analyzer\EfDiagram.Analyzer.csproj", "{538FBDF9-9CA3-45F1-A0B2-BBA645B2783F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{12EDE622-4B34-4D8A-B957-9DB5FBDB3F73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12EDE622-4B34-4D8A-B957-9DB5FBDB3F73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12EDE622-4B34-4D8A-B957-9DB5FBDB3F73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12EDE622-4B34-4D8A-B957-9DB5FBDB3F73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A75C3E50-B630-41F2-B61D-F9316E24B43B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A75C3E50-B630-41F2-B61D-F9316E24B43B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A75C3E50-B630-41F2-B61D-F9316E24B43B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A75C3E50-B630-41F2-B61D-F9316E24B43B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64FC629A-23BD-469C-BDA6-088B385F7810}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64FC629A-23BD-469C-BDA6-088B385F7810}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64FC629A-23BD-469C-BDA6-088B385F7810}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64FC629A-23BD-469C-BDA6-088B385F7810}.Release|Any CPU.Build.0 = Release|Any CPU
+		{538FBDF9-9CA3-45F1-A0B2-BBA645B2783F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{538FBDF9-9CA3-45F1-A0B2-BBA645B2783F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{538FBDF9-9CA3-45F1-A0B2-BBA645B2783F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{538FBDF9-9CA3-45F1-A0B2-BBA645B2783F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{12EDE622-4B34-4D8A-B957-9DB5FBDB3F73} = {CE5FC182-0ECF-497E-A261-E1BE3AAA00BB}
+		{A75C3E50-B630-41F2-B61D-F9316E24B43B} = {CE5FC182-0ECF-497E-A261-E1BE3AAA00BB}
+		{D1D431AF-C49A-484F-B35E-7AA78BB25AED} = {CE5FC182-0ECF-497E-A261-E1BE3AAA00BB}
+		{93F66D7D-8DBF-401A-95D8-7D9E2D59FD96} = {CE5FC182-0ECF-497E-A261-E1BE3AAA00BB}
+		{64FC629A-23BD-469C-BDA6-088B385F7810} = {93F66D7D-8DBF-401A-95D8-7D9E2D59FD96}
+		{538FBDF9-9CA3-45F1-A0B2-BBA645B2783F} = {CE5FC182-0ECF-497E-A261-E1BE3AAA00BB}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5CCFADDC-78E3-4886-ADF9-DD4AEA344A8D}
+	EndGlobalSection
+EndGlobal
