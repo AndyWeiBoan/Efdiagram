@@ -1,22 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using EfDiagram.Domain;
 using EfDiagram.Domain.Contracts;
 using EfDiagram.Domain.Pocos;
 
-namespace EfDiagram.Parsers.PlantUml {
+namespace EfDiagram.Parsers.PlantUml
+{
     public sealed class PlantUmlParser : IEfDigramParser {
 
         string IEfDigramParser.GetResult(EfDaigramModel model) {
+            if (model.Entities?.Any() is not true) return string.Empty;
             var result = new PlantUmlModel { Entities = new  List<string>() };
             foreach (var e in model.Entities) {
                 var columns = this.GetColumns(e.Columns);
                 var entity = this.GetEntity(e.Name, columns);
                 result.Entities.Add(entity);
             }
-            result.RelationShips = this.GetRelationShips(model.RelationShips);
+            if (model.RelationShips?.Any() is true)
+                result.RelationShips = this.GetRelationShips(model.RelationShips);
             return result.ToString();
         }
 
@@ -28,16 +30,32 @@ entity ""{name}"" as {name} {{
         }
 
         private string GetColumns(IEnumerable<Column> columns) {
-            var sb = new StringBuilder();
-            if (columns.Any(p=> p.IsPrimaryKey)) {                
-                sb.AppendLine($"{string.Join("\r\n", columns.Where(p=> p.IsPrimaryKey).Select(p=> new string($"    {p.Name}: {p.Type}")))}");
-                sb.Append($"---\r\n"); 
+            var columnDescription = new StringBuilder();
+            var pkDescription = new StringBuilder();
+            var fkDescription = new StringBuilder();
+            foreach (var column in columns)
+            {
+                if (column.IsPrimaryKey && column.IsForeignKey)
+                {
+                    pkDescription.AppendLine($"    { column.Name}: { column.Type} <<FK>>");
+                }
+                else if (column.IsPrimaryKey)
+                {
+                    pkDescription.AppendLine($"    { column.Name}: { column.Type} ");
+                    
+                }
+                else if (column.IsForeignKey)
+                {
+                    fkDescription.AppendLine($"    { column.Name}: { column.Type} ");
+                }
+                else
+                {
+                    columnDescription.AppendLine($"    { column.Name}: { column.Type}");
+                }
             }
-            
-            foreach (var column in columns.Where(p => !p.IsPrimaryKey)) {
-                sb.AppendLine($"    {column.Name}: {column.Type} {( column.IsForeignKey ? "<<FK>>" : "" )}");
-            }
-            return sb.ToString();
+            pkDescription.Append($"---\r\n");
+
+            return pkDescription.Append(fkDescription).Append(columnDescription).ToString();
         }
 
         private string GetRelationShips(IEnumerable<TableRelationShip> relations) {

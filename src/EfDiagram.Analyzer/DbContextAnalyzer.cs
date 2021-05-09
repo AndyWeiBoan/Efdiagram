@@ -14,13 +14,15 @@ namespace EfDiagram.Analyzer {
 
             var relationModel = context.Model.GetRelationalModel();
             var tables = relationModel.Tables;
+            var foreignKeys = tables.SelectMany(p=> p.ForeignKeyConstraints).SelectMany(p=> p.Columns);
+            var primaryKeys = tables.Select(p => p.PrimaryKey).SelectMany(p => p.Columns);
             var entities = tables.Select(table => new Entity {
                 Name = table.Name,
                 Columns = table?.Columns.Select(column => new Column {
                     Name = column.Name,
                     Type = column.StoreType,
-                    IsForeignKey = table.ForeignKeyConstraints.Any(foreignKey => foreignKey.Columns.Any(fk => fk == column)),
-                    IsPrimaryKey = table.PrimaryKey.Columns.Any(pk => pk == column),
+                    IsForeignKey = foreignKeys?.Any(fk=> fk == column) == true,
+                    IsPrimaryKey = primaryKeys?.Any(pk => pk == column) == true,
                 })
             });
 
