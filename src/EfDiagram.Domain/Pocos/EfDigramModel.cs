@@ -6,6 +6,7 @@ namespace EfDiagram.Domain.Pocos {
     public sealed class EfDaigramModel : IEquatable<EfDaigramModel> {
 
         public IEnumerable<Entity> Entities { get; set; }
+        public IEnumerable<TableRelationShip> RelationShips { get; set; }
 
         public bool Equals([AllowNull] EfDaigramModel other) {
             return this.Entities.SequenceEqual(other.Entities);

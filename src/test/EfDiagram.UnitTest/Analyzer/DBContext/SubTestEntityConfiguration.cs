@@ -13,6 +13,7 @@ namespace EfDiagram.UnitTest.Analyzer.DBContext
             builder.Property(p => p.Amount).HasColumnType("decimal(19,4)");
             builder.Property(p => p.CreatedDate).HasColumnType("datetimeoffset");
             builder.HasOne(p => p.Test).WithMany(p => p.SubTests).HasForeignKey(p=> p.TestId);
+            builder.HasOne(p => p.Test2).WithMany(p => p.SubTests).HasForeignKey(p=> p.Test2Id);
         }
     }
 }

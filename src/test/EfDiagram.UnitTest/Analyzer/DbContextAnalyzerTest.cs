@@ -4,6 +4,7 @@ using EfDiagram.Analyzer;
 using EfDiagram.Domain;
 using EfDiagram.Domain.Contracts;
 using EfDiagram.Domain.Pocos;
+using EfDiagram.Parsers.PlantUml;
 using EfDiagram.UnitTest.Analyzer.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
@@ -22,47 +23,28 @@ namespace EfDiagram.UnitTest.Analyzer {
         public void ResolveTest() {
             // arrange
             var dbContext = new TestContext();
-            var columns = new List<Column> {
-                new Column {
-                    Name = nameof(TestEntity.Id),
-                    IsForeignKey = false,
-                    IsPrimaryKey = true,
-                    Type = "int",
+
+            var relaionShips = new List<TableRelationShip> { 
+                new TableRelationShip {
+                    Entity = new Entity {Name = nameof(SubTestEntity)},
+                    Principal = new Entity {Name = nameof(TestEntity)},
+                    Type = RelationShipType.OneToMany
                 },
-                new Column {
-                    Name = nameof(TestEntity.Name),
-                    IsForeignKey = false,
-                    IsPrimaryKey = true,
-                    Type = "nvarchar(50)",
+                new TableRelationShip {
+                    Entity = new Entity {Name = nameof(SubTestEntity)},
+                    Principal = new Entity {Name = nameof(Test2Entity)},
+                    Type = RelationShipType.OneToMany
                 },
-                new Column {
-                    Name = nameof(TestEntity.Amount),
-                    IsForeignKey = false,
-                    IsPrimaryKey = false,
-                    Type = "decimal(19,4)",
-                },
-                new Column {
-                    Name = nameof(TestEntity.CreatedDate),
-                    IsForeignKey = false,
-                    IsPrimaryKey = false,
-                    Type = "datetimeoffset",
-                }
-            };
-            var expected = new EfDaigramModel {
-                Entities = new List<Entity> {
-                    new Entity {
-                        Name = nameof(TestEntity),
-                        Columns = columns.OrderByDescending(p=> p.IsPrimaryKey).ThenByDescending(p=> p.Name)
-                    }
-                }
             };
 
             // act
             var actual = this._target.Resolve(dbContext);
-
+            IEfDigramParser p = new PlantUmlParser();
+            var a = p.GetResult(actual);
             // assert
-            Assert.True(expected.Equals(actual));
-            
+            Assert.Contains(actual.RelationShips, p => p.Principal.Name == nameof(TestEntity));
+            Assert.Contains(actual.RelationShips, p => p.Principal.Name == nameof(Test2Entity));
+            Assert.Contains(actual.RelationShips, p => p.Type == RelationShipType.OneToMany);
         }
     }
 }

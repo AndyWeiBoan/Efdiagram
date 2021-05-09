@@ -15,6 +15,7 @@ namespace EfDiagram.UnitTest.Analyzer.DBContext
 
             modelBuilder.ApplyConfiguration(new TestEntityConfiguration());
             modelBuilder.ApplyConfiguration(new SubTestEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new Test2EntityConfiguration());
         }        
     }
 }
