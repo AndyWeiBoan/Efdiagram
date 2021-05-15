@@ -11,7 +11,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Diagnostics;
-using Microsoft.Build.Locator;
 
 namespace Efdiagram.Resolver {
     public class DbContextCompilationResolver : IDbContextResolver {
@@ -42,8 +41,6 @@ namespace Efdiagram.Resolver {
             var projectGraph = solution.GetProjectDependencyGraph();
             var projects = projectGraph.GetTopologicallySortedProjects();
             var assemblies = new List<Assembly>();
-            var dd = typeof(Enumerable).GetTypeInfo().Assembly.Location;
-            var coreDir = Directory.GetParent(dd);
             foreach (ProjectId projectId in projectGraph.GetTopologicallySortedProjects()) {
                 var compilation = solution.GetProject(projectId).GetCompilationAsync().Result;
                 compilation = compilation.WithOptions(_compilationOptions);
