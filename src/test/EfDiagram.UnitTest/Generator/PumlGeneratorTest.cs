@@ -5,14 +5,14 @@ using EfDiagram.Domain.Pocos;
 using EfDiagram.Parsers.PlantUml;
 using Xunit;
 
-namespace EfDiagram.UnitTest.Parser {
+namespace EfDiagram.UnitTest.Generator {
 
-    public sealed class PlantUmlParserTest {
+    public sealed class PumlGeneratorTest {
 
-        private readonly IEfDigramParser _target;
+        private readonly IDigramGenerator _target;
 
-        public PlantUmlParserTest() {
-            this._target = new PlantUmlParser();
+        public PumlGeneratorTest() {
+            this._target = new PumlGenerator();
         }
 
         [Fact]

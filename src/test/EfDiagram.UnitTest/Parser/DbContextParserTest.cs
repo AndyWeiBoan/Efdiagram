@@ -1,26 +1,24 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using EfDiagram.Analyzer;
 using EfDiagram.Domain;
 using EfDiagram.Domain.Contracts;
 using EfDiagram.Domain.Pocos;
-using EfDiagram.Parsers.PlantUml;
+using EfDiagram.Parsers;
 using EfDiagram.UnitTest.Analyzer.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
 
-namespace EfDiagram.UnitTest.Analyzer {
-    public sealed class DbContextAnalyzerTest {
+namespace EfDiagram.UnitTest.Parser {
+    public sealed class DbContextParserTest {
 
-        private readonly IEfdiagramAnalyzer<DbContext> _target;
+        private readonly IEfdiagramModelParser<DbContext> _target;
 
-        public DbContextAnalyzerTest() {
-            this._target = new DbContextAnalyzer();
+        public DbContextParserTest() {
+            this._target = new DbContextParser();
         }
 
         [Fact]
-        public void ResolveTest() {
+        public void ParserTest() {
             // arrange
             var dbContext = new TestContext();
 
@@ -38,9 +36,8 @@ namespace EfDiagram.UnitTest.Analyzer {
             };
 
             // act
-            var actual = this._target.Resolve(dbContext);
-            IEfDigramParser p = new PlantUmlParser();
-            var a = p.GetResult(actual);
+            var actual = this._target.GetResult(dbContext);
+
             // assert
             Assert.Contains(actual.RelationShips, p => p.Principal.Name == nameof(TestEntity));
             Assert.Contains(actual.RelationShips, p => p.Principal.Name == nameof(Test2Entity));

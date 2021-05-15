@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace EfDiagram.Parsers.PlantUml {
-    public sealed class PlantUmlModel {
+namespace EfDiagram.Generator.Puml {
+    public sealed class PumlSyntaxModel {
         public string Begin { get; set; } = "@startuml";
         public IList<string> Entities { get; set; }
         public string RelationShips { get; set; }

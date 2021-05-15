@@ -7,10 +7,10 @@ using EfDiagram.Domain.Contracts;
 using EfDiagram.Domain.Pocos;
 using Microsoft.EntityFrameworkCore;
 
-namespace EfDiagram.Analyzer {
-    public class DbContextAnalyzer : IEfdiagramAnalyzer<DbContext> {
+namespace EfDiagram.Parsers {
+    public class DbContextParser : IEfdiagramModelParser<DbContext> {
         
-        EfDaigramModel IEfdiagramAnalyzer<DbContext>.Resolve(DbContext context) {
+        EfDaigramModel IEfdiagramModelParser<DbContext>.GetResult(DbContext context) {
 
             var relationModel = context.Model.GetRelationalModel();
             var tables = relationModel.Tables;

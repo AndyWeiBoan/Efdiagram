@@ -4,14 +4,15 @@ using System.Text;
 using EfDiagram.Domain;
 using EfDiagram.Domain.Contracts;
 using EfDiagram.Domain.Pocos;
+using EfDiagram.Generator.Puml;
 
 namespace EfDiagram.Parsers.PlantUml
 {
-    public sealed class PlantUmlParser : IEfDigramParser {
+    public sealed class PumlGenerator : IDigramGenerator {
 
-        string IEfDigramParser.GetResult(EfDaigramModel model) {
+        string IDigramGenerator.GetResult(EfDaigramModel model) {
             if (model.Entities?.Any() is not true) return string.Empty;
-            var result = new PlantUmlModel { Entities = new  List<string>() };
+            var result = new PumlSyntaxModel { Entities = new  List<string>() };
             foreach (var e in model.Entities) {
                 var columns = this.GetColumns(e.Columns);
                 var entity = this.GetEntity(e.Name, columns);
