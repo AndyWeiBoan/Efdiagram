@@ -5,15 +5,13 @@ using EfDiagram.Domain.Contracts;
 namespace EfDiagram.Domain.Concreate {
     public class DirectoryConcreate : IDirectory {
 
-        private const string solutionFilePattern = "*.sln";
-
         string[] IDirectory.GetFilesPath(string pattern) {
             var directory = new DirectoryInfo(Directory.GetCurrentDirectory());
-            var files = directory.GetFiles(solutionFilePattern);
+            var files = directory.GetFiles(pattern);
             var fullName = directory.FullName;
             return files?.Any() != true
                 ? Enumerable.Empty<string>() as string[]
-                : Directory.EnumerateFiles(fullName, solutionFilePattern, SearchOption.AllDirectories) as string[];
+                : Directory.EnumerateFiles(fullName, pattern, SearchOption.AllDirectories) as string[];
         }
     }
 }

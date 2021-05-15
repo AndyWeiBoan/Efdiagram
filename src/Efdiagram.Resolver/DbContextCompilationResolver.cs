@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Runtime.Loader;
 using EfDiagram.Domain.Contracts;
 using Microsoft.CodeAnalysis;
@@ -8,6 +9,9 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.MSBuild;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Linq;
+using System.Diagnostics;
+using Microsoft.Build.Locator;
 
 namespace Efdiagram.Resolver {
     public class DbContextCompilationResolver : IDbContextResolver {
@@ -31,10 +35,15 @@ namespace Efdiagram.Resolver {
             return resuls;
         }
 
-        private IEnumerable<Type> ResovleDbContextType(string solutionPath) {
+        private IEnumerable<Type> ResovleDbContextType(string solutionPath) { 
             using var ms = MSBuildWorkspace.Create();
+            ms.WorkspaceFailed += (o, e) => Debug.WriteLine(e.Diagnostic.Message, e.Diagnostic.Kind);
             var solution = ms.OpenSolutionAsync(solutionPath).Result;
             var projectGraph = solution.GetProjectDependencyGraph();
+            var projects = projectGraph.GetTopologicallySortedProjects();
+            var assemblies = new List<Assembly>();
+            var dd = typeof(Enumerable).GetTypeInfo().Assembly.Location;
+            var coreDir = Directory.GetParent(dd);
             foreach (ProjectId projectId in projectGraph.GetTopologicallySortedProjects()) {
                 var compilation = solution.GetProject(projectId).GetCompilationAsync().Result;
                 compilation = compilation.WithOptions(_compilationOptions);
@@ -43,9 +52,12 @@ namespace Efdiagram.Resolver {
                 var result = compilation.Emit(mStream);
                 if (!result.Success) continue;
                 mStream.Seek(0, SeekOrigin.Begin);
-                foreach (var type in AssemblyLoadContext.Default.LoadFromStream(mStream).GetTypes()) {
-                    if (type.BaseType == typeof(DbContext)) yield return type;
-                }
+                assemblies.Add(AssemblyLoadContext.Default.LoadFromStream(mStream));
+            }
+            foreach (var type in assemblies.SelectMany(p => p.GetTypes()))
+            {               
+                if (type.IsSubclassOf(typeof(DbContext)) == true || type.IsAssignableFrom(typeof(DbContext))) 
+                    yield return type;
             }
         }
     }
