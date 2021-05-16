@@ -36,7 +36,7 @@ namespace Efdiagram.Resolver {
 
         private IEnumerable<Type> ResovleDbContextType(string solutionPath) { 
             using var ms = MSBuildWorkspace.Create();
-            ms.WorkspaceFailed += (o, e) => Debug.WriteLine(e.Diagnostic.Message, e.Diagnostic.Kind);
+            ms.WorkspaceFailed += (o, e) => this.OnWorkspaceFailed(o, e);
             var solution = ms.OpenSolutionAsync(solutionPath).Result;
             var projectGraph = solution.GetProjectDependencyGraph();
             var projects = projectGraph.GetTopologicallySortedProjects();
@@ -56,6 +56,11 @@ namespace Efdiagram.Resolver {
                 if (type.IsSubclassOf(typeof(DbContext)) == true || type.IsAssignableFrom(typeof(DbContext))) 
                     yield return type;
             }
+        }
+
+        private void OnWorkspaceFailed(object o, WorkspaceDiagnosticEventArgs e) {
+            Debug.WriteLine($"{e.Diagnostic.Kind}: {e.Diagnostic.Message}, {o}");
+            _logger.LogWarning($"{e.Diagnostic.Kind}: {e.Diagnostic.Message}, {o}");
         }
     }
 }
