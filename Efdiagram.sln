@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Efdiagram.Resolver", "src\E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Efdiagram.Extensions", "src\Efdiagram.Extensions\Efdiagram.Extensions.csproj", "{1ED1945D-144D-47D6-BB30-7B32BBB28AC4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Efdiagram.Sample", "src\app\Efdiagram.Sample\Efdiagram.Sample.csproj", "{56CD7274-D84D-4F22-80C5-620C8982F5B4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{1ED1945D-144D-47D6-BB30-7B32BBB28AC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1ED1945D-144D-47D6-BB30-7B32BBB28AC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1ED1945D-144D-47D6-BB30-7B32BBB28AC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56CD7274-D84D-4F22-80C5-620C8982F5B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56CD7274-D84D-4F22-80C5-620C8982F5B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56CD7274-D84D-4F22-80C5-620C8982F5B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56CD7274-D84D-4F22-80C5-620C8982F5B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +70,7 @@ Global
 		{E012FCB5-C378-44C9-9961-F911494CA684} = {CE5FC182-0ECF-497E-A261-E1BE3AAA00BB}
 		{867875DF-E26A-4CC9-BCDF-FDF5F600945A} = {CE5FC182-0ECF-497E-A261-E1BE3AAA00BB}
 		{1ED1945D-144D-47D6-BB30-7B32BBB28AC4} = {CE5FC182-0ECF-497E-A261-E1BE3AAA00BB}
+		{56CD7274-D84D-4F22-80C5-620C8982F5B4} = {D1D431AF-C49A-484F-B35E-7AA78BB25AED}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5CCFADDC-78E3-4886-ADF9-DD4AEA344A8D}
