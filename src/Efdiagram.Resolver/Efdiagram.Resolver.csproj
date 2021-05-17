@@ -1,20 +1,31 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿
+
+
+  <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    
   </PropertyGroup>
-
-  <ItemGroup>
+    <ItemGroup>
+    <PackageReference Include="Microsoft.Build.Locator" Version="1.2.6" />
+    <PackageReference Include="Microsoft.Build" Version="16.9.0" ExcludeAssets="runtime"/>
+    <PackageReference Include="Microsoft.Build.Framework" Version="16.9.0" ExcludeAssets="runtime"/>
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="16.9.0" ExcludeAssets="runtime"/>    
+    <PackageReference Include="NuGet.ProjectModel" Version="5.9.1" />
+    <!--<Reference Include="Microsoft.Build, Version=15.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>-->
+      
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.5" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Build" Version="16.9.0" />
-    <PackageReference Include="Microsoft.Build.Framework" Version="16.9.0" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.9.0" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.9.0" />
     <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="3.9.0" />
     <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" Version="3.9.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.5" />
+      
   </ItemGroup>
 
   <ItemGroup>

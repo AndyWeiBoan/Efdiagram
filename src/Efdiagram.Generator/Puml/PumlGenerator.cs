@@ -8,9 +8,9 @@ using EfDiagram.Generator.Puml;
 
 namespace EfDiagram.Parsers.PlantUml
 {
-    public sealed class PumlGenerator : IDigramGenerator {
+    public sealed class PumlGenerator : IDiagramGenerator {
 
-        string IDigramGenerator.GetResult(EfDaigramModel model) {
+        string IDiagramGenerator.GetResult(EfDaigramModel model) {
             if (model.Entities?.Any() is not true) return string.Empty;
             var result = new PumlSyntaxModel { Entities = new  List<string>() };
             foreach (var e in model.Entities) {

@@ -7,11 +7,9 @@ namespace EfDiagram.Domain.Concreate {
 
         string[] IDirectory.GetFilesPath(string pattern) {
             var directory = new DirectoryInfo(Directory.GetCurrentDirectory());
-            var files = directory.GetFiles(pattern);
-            var fullName = directory.FullName;
-            return files?.Any() != true
-                ? Enumerable.Empty<string>() as string[]
-                : Directory.EnumerateFiles(fullName, pattern, SearchOption.AllDirectories) as string[];
+            return directory
+                .GetFiles(pattern, SearchOption.AllDirectories)
+                .Select(file=> file.FullName).ToArray();
         }
     }
 }

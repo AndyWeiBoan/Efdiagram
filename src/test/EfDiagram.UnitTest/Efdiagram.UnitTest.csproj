@@ -1,9 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-
-    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,8 +11,54 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Build" Version="16.9.0" />
-    <PackageReference Include="Microsoft.Build.Framework" Version="16.9.0" />
+    <Content Include="Stubs\TestSolution\global.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Stubs\TestSolution\Test.Context\Configurations\CustomerConfiguration.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Stubs\TestSolution\Test.Context\Configurations\OrderConfiguration.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Stubs\TestSolution\Test.Context\Configurations\ProductConfiguration.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Stubs\TestSolution\Test.Context\StoreContext.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Stubs\TestSolution\Test.Entities\Customer.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Stubs\TestSolution\Test.Entities\Order.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Stubs\TestSolution\Test.Entities\Product.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Stubs\TestSolution\Test.sln">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Stubs\TestSolution\Test.Entities\Test.Entities.csproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Stubs\TestSolution\Test.Context\Test.Context.csproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  
+  <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.9.0" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.9.0" />
     <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="3.9.0" />
@@ -37,6 +81,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\EfDiagram.Domain\EfDiagram.Domain.csproj" />
+    <ProjectReference Include="..\..\Efdiagram.Extensions\Efdiagram.Extensions.csproj" />
     <ProjectReference Include="..\..\Efdiagram.Generator\Efdiagram.Generator.csproj" />
     <ProjectReference Include="..\..\EfDiagram.Parsers\EfDiagram.Parsers.csproj" />
     <ProjectReference Include="..\..\Efdiagram.Resolver\Efdiagram.Resolver.csproj" />

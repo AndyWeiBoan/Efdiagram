@@ -9,7 +9,7 @@ namespace EfDiagram.UnitTest.Generator {
 
     public sealed class PumlGeneratorTest {
 
-        private readonly IDigramGenerator _target;
+        private readonly IDiagramGenerator _target;
 
         public PumlGeneratorTest() {
             this._target = new PumlGenerator();

@@ -2,7 +2,7 @@
 
 namespace EfDiagram.Domain.Contracts {
 
-    public interface IDigramGenerator {
+    public interface IDiagramGenerator {
 
         string GetResult(EfDaigramModel model);
     }
