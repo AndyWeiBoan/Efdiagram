@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using Efdiagram.CommandLine.Commands;
+using Efdiagram.Extensions;
 using Efdiagram.Resolver;
 using EfDiagram.Domain.Concrete;
 using EfDiagram.Domain.Contracts;
@@ -7,26 +8,17 @@ using EfDiagram.Parsers.PlantUml;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
-namespace Efdiagram.Sample
-{
+namespace Efdiagram.CommandLine {
     public class Startup {
 
-        IConfigurationRoot Configuration { get; }
+        public IConfiguration Configuration { get; }
 
-        public Startup() {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json");
-
-            Configuration = builder.Build();
-        }
+        public Startup(IConfiguration configuration) => Configuration = configuration;
 
         public void ConfigureServices(IServiceCollection services) {
-            services.AddLogging(config => config.AddConsole());
-            services.AddSingleton(Configuration);
-            services.AddSingleton(typeof(Service));
+            // Configure your services here
+            services.RegisterServices<IEfdiagramCommand>();
             services.AddSingleton<IDiagramGenerator, PumlGenerator>();
             services.AddSingleton<IDirectory, DirectoryConcreate>();
             services.AddSingleton<IEfdiagramModelParser<DbContext>, DbContextParser>();

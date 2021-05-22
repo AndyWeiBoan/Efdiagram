@@ -1,5 +1,4 @@
 ﻿using Efdiagram.Resolver;
-using EfDiagram.Domain.Concreate;
 using EfDiagram.Domain.Contracts;
 using Microsoft.Extensions.Logging;
 using NSubstitute;

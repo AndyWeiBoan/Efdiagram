@@ -2,7 +2,7 @@
 using System.Linq;
 using EfDiagram.Domain.Contracts;
 
-namespace EfDiagram.Domain.Concreate {
+namespace EfDiagram.Domain.Concrete {
     public class DirectoryConcreate : IDirectory {
 
         string[] IDirectory.GetFilesPath(string pattern) {
