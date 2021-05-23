@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 namespace EfDiagram.Parsers {
     public class DbContextParser : IEfdiagramModelParser<DbContext> {
         
-        EfDaigramModel IEfdiagramModelParser<DbContext>.GetResult(DbContext context) {
+        EfDaigramModel IEfdiagramModelParser<DbContext>.GetResult(string databaseName, DbContext context) {
 
             var relationModel = context.Model.GetRelationalModel();
             var tables = relationModel.Tables;
@@ -41,7 +41,7 @@ namespace EfDiagram.Parsers {
                 });
             }
 
-            return new EfDaigramModel { Entities = entities, RelationShips = relaionShips };
+            return new EfDaigramModel { DatabaseName = databaseName, Entities = entities, RelationShips = relaionShips };
         }
 
         private RelationShipType getRelationShipType(Type type, Type principalType) {

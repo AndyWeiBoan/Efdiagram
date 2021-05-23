@@ -46,8 +46,8 @@ namespace EfDiagram.UnitTest.Generator {
             // act
             var result = this._target.GetResult(model);
 
-            Assert.Contains("@startum", result);
-            Assert.Contains("@enduml", result);
+            Assert.Contains("@startum", result.Content);
+            Assert.Contains("@enduml", result.Content);
         }
     }
 }

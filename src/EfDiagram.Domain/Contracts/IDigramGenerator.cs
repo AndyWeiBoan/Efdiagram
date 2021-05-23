@@ -4,6 +4,6 @@ namespace EfDiagram.Domain.Contracts {
 
     public interface IDiagramGenerator {
 
-        string GetResult(EfDaigramModel model);
+        DiagramResult GetResult(EfDaigramModel model);
     }
 }

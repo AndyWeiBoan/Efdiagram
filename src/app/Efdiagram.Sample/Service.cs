@@ -24,10 +24,10 @@ namespace Efdiagram.Sample {
             var solutions = this.dir.GetFilesPath("*.sln");
             var types = resolver.GetDbContextTypes(solutions);
             foreach (var type in types) {
-                var efdiagramModel = parser.GetResult(ActivatorExtensions.CrteateDbContext(type));
+                var efdiagramModel = parser.GetResult(type.Name, ActivatorExtensions.CrteateDbContext(type));
                 var generated = this.generator.GetResult(efdiagramModel);
-                if (!string.IsNullOrEmpty(generated))
-                    return generated;
+                if (!string.IsNullOrEmpty(generated.Content))
+                    return generated.Content;
             }
             return "Nothing generated.";
         }

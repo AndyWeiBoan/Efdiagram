@@ -3,6 +3,6 @@
 namespace EfDiagram.Domain.Contracts {
     public interface IEfdiagramModelParser<T> {
 
-        EfDaigramModel GetResult(T context);
+        EfDaigramModel GetResult(string databaseName, T context);
     }
 }

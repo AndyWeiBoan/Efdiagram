@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Efdiagram.CommandLine.Extensions;
 using Efdiagram.Extensions;
 using EfDiagram.Domain.Contracts;
 using EfDiagram.Domain.Pocos;
@@ -22,8 +24,8 @@ namespace Efdiagram.CommandLine.Commands {
         void IEfdiagramCommand.Register(CommandLineApplication app) {
             app.HelpOption("-h|--help");
             app.Description = _description;
-            var solutionsOpt = app.Option("-s|--sln <solution>", "The solution files", CommandOptionType.SingleValue);
-            var outputOpt = app.Option("-o|--output <output>", "The output of result", CommandOptionType.SingleValue);
+            var solutionsOpt = app.Option("-s|--sln <solution>", "The solution files", CommandOptionType.SingleValue).Accepts(s=> s.ExistingFile());
+            var outputOpt = app.Option("-o|--output <output>", "Out directory", CommandOptionType.SingleValue).Accepts(o=> o.LegalFilePath());
 
             app.OnExecute(() => {
                 try {
@@ -32,8 +34,10 @@ namespace Efdiagram.CommandLine.Commands {
                     var results = models.Select(m => generator.GetResult(m));
 
                     if (!outputOpt.HasValue())
-                        app.Out.WriteLine(string.Join("-------------", results));
-                    
+                        app.Out.WriteLine(string.Join("-------------", results.Select(r=> r.Content)));
+                    else
+                        app.Out.WriteToFiles(outputOpt.Value(), results);
+
                 } catch (Exception ex) {
                     app.Out.WriteLine(ex.ToString());
                 }
@@ -43,7 +47,7 @@ namespace Efdiagram.CommandLine.Commands {
             });
         }
 
-        private IEnumerable<EfDaigramModel> getEfDaigramModel(CommandLineApplication app, IEnumerable<string> solutionsOpt) {
+        private IList<EfDaigramModel> getEfDaigramModel(CommandLineApplication app, IEnumerable<string> solutionsOpt) {
             var directory = app.GetRequiredService<IDirectory>();
             var solutions = solutionsOpt?.Any() != true
                 ? directory.GetFilesPath("*.sln")
@@ -53,7 +57,7 @@ namespace Efdiagram.CommandLine.Commands {
             var types = resovler.GetDbContextTypes(solutions);
             var parser = app.GetRequiredService<IEfdiagramModelParser<DbContext>>();
 
-            return types.Select(type => parser.GetResult(ActivatorExtensions.CrteateDbContext(type)));
+            return types.Select(type => parser.GetResult(type.Name, ActivatorExtensions.CrteateDbContext(type))).ToList();
         }
     }
 }

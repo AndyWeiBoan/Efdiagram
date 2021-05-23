@@ -10,8 +10,8 @@ namespace EfDiagram.Parsers.PlantUml
 {
     public sealed class PumlGenerator : IDiagramGenerator {
 
-        string IDiagramGenerator.GetResult(EfDaigramModel model) {
-            if (model.Entities?.Any() is not true) return string.Empty;
+        DiagramResult IDiagramGenerator.GetResult(EfDaigramModel model) {
+            if (model.Entities?.Any() is not true) return default(DiagramResult);
             var result = new PumlSyntaxModel { Entities = new  List<string>() };
             foreach (var e in model.Entities) {
                 var columns = this.GetColumns(e.Columns);
@@ -20,7 +20,7 @@ namespace EfDiagram.Parsers.PlantUml
             }
             if (model.RelationShips?.Any() is true)
                 result.RelationShips = this.GetRelationShips(model.RelationShips);
-            return result.ToString();
+            return new DiagramResult { DatabaseName = model.DatabaseName, Content = result.ToString(), FileType = FileType.puml };
         }
 
         private string GetEntity(string name, string columns) {

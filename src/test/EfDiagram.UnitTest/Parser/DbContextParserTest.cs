@@ -36,7 +36,7 @@ namespace EfDiagram.UnitTest.Parser {
             };
 
             // act
-            var actual = this._target.GetResult(dbContext);
+            var actual = this._target.GetResult(typeof(TestContext).Name, dbContext);
 
             // assert
             Assert.Contains(actual.RelationShips, p => p.Principal.Name == nameof(TestEntity));
