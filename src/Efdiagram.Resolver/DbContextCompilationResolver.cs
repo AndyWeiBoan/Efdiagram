@@ -38,6 +38,8 @@ namespace Efdiagram.Resolver {
             ms.WorkspaceFailed += (o, e) => this.OnWorkspaceFailed(o, e);
             var solution = ms.OpenSolutionAsync(solutionPath).Result;
             return solution.Projects
+                .Where(Project=> Project.CompilationOptions.OutputKind == OutputKind.DynamicallyLinkedLibrary)
+                .Where(project=> !project.Name.Contains("netstandard2.1"))
                 .Select(project => this.GetAssemblyByProjectCompiled(project))
                 .ToArray()
                 .Where(assembly=> assembly != default)
@@ -46,6 +48,16 @@ namespace Efdiagram.Resolver {
         }
 
         private Assembly GetAssemblyByProjectCompiled(Project project) {
+            foreach (var reference in project.MetadataReferences)
+            {
+                try
+                {
+                    AssemblyLoadContext.Default.LoadFromAssemblyPath(reference.Display);
+                }
+                catch 
+                {
+                }
+            }
             var compilation = project.GetCompilationAsync().Result;
             if (null == compilation || string.IsNullOrEmpty(compilation.AssemblyName)) 
                 return default(Assembly);
